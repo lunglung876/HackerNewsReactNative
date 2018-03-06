@@ -1,17 +1,23 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Linking} from 'react-native';
 import moment from 'moment';
 
 const PostListItem = ({post, index}) => {
     return (
         <View style={[styles.item, index % 2 === 0 && styles.evenItem]}>
-            <Text style={styles.title}>{post.title}</Text>
+            <TouchableOpacity onPress={event => openURL(post.url)}>
+                <Text style={styles.title}>{post.title}</Text>
+            </TouchableOpacity>
             <View style={styles.metaContainer}>
                 <Text style={styles.meta}>{moment(post.time, 'X').fromNow()}</Text>
                 <Text style={styles.meta}>By {post.by}</Text>
             </View>
         </View>
     );
+};
+
+const openURL = (url) => {
+    Linking.openURL(url).catch(err => console.error('An error occurred', err));
 };
 
 const styles = StyleSheet.create({
