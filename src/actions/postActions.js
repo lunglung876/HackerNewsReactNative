@@ -8,6 +8,13 @@ export function loadPostsSuccess(posts) {
     }
 }
 
+export function loadCommentsSuccess(comments) {
+    return {
+        type: types.LOAD_COMMENTS_SUCCESS,
+        comments
+    }
+}
+
 export function loadPosts() {
     return dispatch => {
         getPostList().then(posts => {
@@ -17,5 +24,13 @@ export function loadPosts() {
         }).catch(error => {
             throw(error);
         });
+    }
+}
+
+export function loadComments(ids) {
+    return dispatch => {
+        return Promise.all(ids.map(getItem))
+            .then(comments => dispatch(loadCommentsSuccess(comments)))
+        ;
     }
 }

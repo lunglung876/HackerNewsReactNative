@@ -1,10 +1,10 @@
 import React from 'react';
 import {View} from 'react-native';
-import PostListContainer from '../containers/PostListContainer';
+import PostContainer from '../containers/PostContainer';
 
-export class HomeScreen extends React.Component {
+export class PostScreen extends React.Component {
     static navigationOptions = {
-        title: 'News',
+        title: 'Comments',
         headerStyle: {
             backgroundColor: '#444',
             borderBottomColor: '#999',
@@ -18,7 +18,7 @@ export class HomeScreen extends React.Component {
     render() {
         return (
             <View style={{backgroundColor: '#444', flex: 1}}>
-                <PostListContainer navigation={this.props.navigation}/>
+                <PostContainer post={this.props.navigation.state.params.post}/>
             </View>
         );
     }

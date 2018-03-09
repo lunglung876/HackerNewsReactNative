@@ -11,9 +11,13 @@ class PostListContainer extends React.Component {
 
     render() {
         return (
-            <PostList posts={this.props.posts} />
+            <PostList posts={this.props.posts} onCommentPress={this.onCommentPress}/>
         );
     }
+
+    onCommentPress = (post) => {
+        this.props.navigation.navigate('Post', {post});
+    };
 }
 
 const mapStateToProps = (state, ownProps) => {

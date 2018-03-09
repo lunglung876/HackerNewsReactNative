@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Linking} from 'react-native';
 import moment from 'moment';
 
-const PostListItem = ({post, index}) => {
+const PostListItem = ({post, index, onCommentPress}) => {
     return (
         <View style={[styles.item, index % 2 === 0 && styles.evenItem]}>
             <TouchableOpacity onPress={event => openURL(post.url)}>
@@ -11,7 +11,11 @@ const PostListItem = ({post, index}) => {
             <View style={styles.metaContainer}>
                 <Text style={styles.meta}>{moment(post.time, 'X').fromNow()}</Text>
                 <Text style={styles.meta}>By {post.by}</Text>
+                <Text style={styles.meta}>{post.score} points</Text>
             </View>
+            <TouchableOpacity onPress={event => onCommentPress(post)}>
+                <Text style={[styles.meta, styles.comments]}>{post.kids.length} comments</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -22,11 +26,11 @@ const openURL = (url) => {
 
 const styles = StyleSheet.create({
     item: {
-        backgroundColor: '#333',
+        backgroundColor: '#444',
         padding: 10,
     },
     evenItem: {
-        backgroundColor: '#444',
+        backgroundColor: '#333',
     },
     title: {
         color: '#BBB',
@@ -34,13 +38,17 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     metaContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: 10,
     },
     meta: {
         color: '#999',
         fontSize: 13,
         marginRight: 15,
     },
+    comments: {
+        color: '#BBB',
+    }
 });
 
 export default PostListItem;
